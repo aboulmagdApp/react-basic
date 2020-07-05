@@ -1,47 +1,64 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+class CountCharacters extends React.Component{
+
+  constructor(props){
+
+      super(props);
+
+      this.state={
+
+          message:'',
+
+          counter:10
+
+      };
+
+  }
+
+  onMessageChange(text){
+      this.setState({
+          message:'Message has '+text.length+' number of Characters'
+      });
+  }
+  render(){
+      return <div>
+          <h2>Welcome to Count Characters Component...</h2>
+          <p>
+              <label>Enter Message : <input type="text" 
+                          onChange={e=>this.onMessageChange(e.target.value)}></input></label>
+          </p>
+
+          <p>
+              <label>{this.state.message}</label>
+          </p>
+          <p>
+              <label>{this.state.counter}</label>
+          </p>
+      </div>
+  }
+}
 
 class Employee extends React.Component {
-  // the props inside component is read only
-  constructor(props){
-    super(props);
-    console.log(props);
+  state={counter:0};
+  addEmployee = () => {
+    this.setState({counter:this.state.counter+1});
   }
+
   render() {
     return <div>
-      <h2>Employee Details.....</h2>
+      <h2>welcome to Employee Component...</h2>
       <p>
-        <label>Employee ID : <b>{this.props.Id}</b> </label>
+        <button onClick={this.addEmployee}>Add Employee</button>
       </p>
       <p>
-        <label>Employee Name : <b>{this.props.Name}</b> </label>
+          <label>Add Employee Button is clicked : <b>{this.state.counter}</b> times</label>
       </p>
-      <p>
-        <label>Employee Location : <b>{this.props.Location}</b> </label>
-      </p>
-      <p>
-        <label>Employee Salary: <b>{this.props.Salary}</b> </label>
-      </p>
-      <Department DeptName={this.props.DeptName} HeadName={this.props.HeadName}></Department>
     </div>
   }
 }
 
-class Department extends React.Component {
-
-  render(){
-    return <div>
-      <h2>Department Details...</h2>
-      <p>
-        <label>Dept Name : <b>{this.props.DeptName}</b></label>
-      </p>
-      <p>
-        <label>Head Name : <b>{this.props.HeadName}</b></label>
-      </p>
-      </div>;
-  }
-}
-
-const element=<Employee Id="101" Name="aboulmagd" Location="saudi arabia" Salary="500" DeptName="Dev" HeadName="Technologies"></Employee>
+//const element = <Employee></Employee>
+const element = <CountCharacters></CountCharacters>
 ReactDOM.render(element, document.getElementById('root'));
